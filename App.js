@@ -15,6 +15,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import BackgroundTimer from 'react-native-background-timer';
 import Spinner from 'react-native-loading-spinner-overlay';
+const URI = 'http://192.168.1.29:8000';//local network
 
 class HomeScreen extends React.Component {
   render() {
@@ -76,7 +77,6 @@ class HomeScreen extends React.Component {
 
   ];
 
-  URI = 'http://192.168.1.29:8080';//local network
 
   componentDidMount() {
     const intervalId = BackgroundTimer.setInterval(() => {
@@ -158,7 +158,7 @@ class HomeScreen extends React.Component {
             alert("Please complete survey before submit");
           } else {
             this.setState({ loading: true });
-            fetch(this.URI + '/api/submit', {
+            fetch(URI + '/api/submit', {
               method: 'POST',
               headers: {
                 Accept: 'application/json',
@@ -194,7 +194,7 @@ class HomeScreen extends React.Component {
   }
 }
 class ResultScreen extends React.Component {
-  URI = 'http://192.168.1.29:8080';//local network
+  // URI = 'http://192.168.1.29:8080';//local network
   state = {
     totalquestion: 0,
     question1a: 0,
@@ -216,7 +216,7 @@ class ResultScreen extends React.Component {
   }
   componentWillMount() {
 
-    fetch(this.URI + '/api/getresult', {
+    fetch(URI + '/api/getresult', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
