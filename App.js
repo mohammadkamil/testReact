@@ -111,7 +111,7 @@ class HomeScreen extends React.Component {
           //Text style of the Spinner Text
           textStyle={styles.spinnerTextStyle}
         />
-        <Text>Timer: {this.state.timer} s</Text>
+        <Text>Countdown : {this.state.timer} s</Text>
 
         <Text>{this.questionlabel[0].label}</Text>
 
