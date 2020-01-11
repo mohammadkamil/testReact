@@ -8,11 +8,13 @@
 import 'react-native-gesture-handler';
 
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 // import { RadioButton } from 'react-native-paper';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+import BackgroundTimer from 'react-native-background-timer';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class HomeScreen extends React.Component {
   render() {
@@ -30,7 +32,8 @@ class HomeScreen extends React.Component {
     question2: 0,
     question3: 0,
     question4: 0,
-    timer: 60
+    timer: 60,
+    loading: false
 
   };
 
@@ -76,19 +79,38 @@ class HomeScreen extends React.Component {
   URI = 'http://192.168.1.29:8080';//local network
 
   componentDidMount() {
-
-    let myInterval = setInterval(() => {
+    const intervalId = BackgroundTimer.setInterval(() => {
       this.setState({ timer: this.state.timer - 1 });
       if (this.state.timer == 0) {
-        clearInterval(myInterval);
+        BackgroundTimer.clearInterval(intervalId);
 
         this.props.navigation.navigate('Home');
       }
+      console.log('tic');
     }, 1000);
+
+    // Cancel the timer when you are done with it
+    // let myInterval = setInterval(() => {
+    //   this.setState({ timer: this.state.timer - 1 });
+    //   if (this.state.timer == 0) {
+    //     clearInterval(myInterval);
+
+    //     this.props.navigation.navigate('Home');
+    //   }
+    // }, 1000);
   }
+
   render() {
     return (
       <View style={{ flex: 1, margin: 10 }}>
+        <Spinner
+          //visibility of Overlay Loading Spinner
+          visible={this.state.loading}
+          //Text with the Spinner
+          textContent={'Loading...'}
+          //Text style of the Spinner Text
+          textStyle={styles.spinnerTextStyle}
+        />
         <Text>Timer: {this.state.timer} s</Text>
 
         <Text>{this.questionlabel[0].label}</Text>
@@ -130,30 +152,45 @@ class HomeScreen extends React.Component {
           isSelected={false}
         />
 
-        <Button title="Submit" onPress={() => fetch(this.URI + '/api/submit', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            question1: this.state.question1,
-            question2: this.state.question2,
-            question3: this.state.question3,
-            question4: this.state.question4,
+        <Button title="Submit" onPress={() => {
+          if (this.state.question1 == 0 || this.state.question2 == 0 || this.state.question3 == 0 || this.state.question4 == 0) {
 
-          }),
-        }).then((response) => response.json())
-          .then((responseJson) => {
-            this.props.navigation.navigate('Result');
-          })
-          .catch((error) => {
-            console.error(error);
-          })}></Button>
+            alert("Please complete survey before submit");
+          } else {
+            this.setState({ loading: true });
+            fetch(this.URI + '/api/submit', {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                question1: this.state.question1,
+                question2: this.state.question2,
+                question3: this.state.question3,
+                question4: this.state.question4,
+
+              }),
+            }).then((response) => response.json())
+              .then((responseJson) => {
+                this.setState({ loading: false });
+
+                this.props.navigation.navigate('Result');
+              })
+              .catch((error) => {
+                console.error(error);
+              })
+          }
+        }
+
+        }></Button>
 
 
       </View>
     );
+  }
+  _onPressButton() {
+    alert('You tapped the button!');
   }
 }
 class ResultScreen extends React.Component {
@@ -174,9 +211,11 @@ class ResultScreen extends React.Component {
     question3d: 0,
     question4a: 0,
     question4b: 0,
+    loading: true
 
   }
   componentWillMount() {
+
     fetch(this.URI + '/api/getresult', {
       method: 'POST',
       headers: {
@@ -203,6 +242,8 @@ class ResultScreen extends React.Component {
           question4a: responseJson.data[0].totalanswer4a,
           question4b: responseJson.data[0].totalanswer4b,
         });
+        this.setState({ loading: false });
+
         // alert(JSON.stringify(responseJson.data));
       })
       .catch((error) => {
@@ -213,7 +254,14 @@ class ResultScreen extends React.Component {
     return (
 
       <View style={{ flex: 1, margin: 10 }}>
-
+        <Spinner
+          //visibility of Overlay Loading Spinner
+          visible={this.state.loading}
+          //Text with the Spinner
+          textContent={'Loading...'}
+          //Text style of the Spinner Text
+          textStyle={styles.spinnerTextStyle}
+        />
         <Text>Result Screen</Text>
 
         <Text>1. Age group</Text>
@@ -280,5 +328,17 @@ const AppNavigator = createStackNavigator({
     }),
   },
 });
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    textAlign: 'center',
+    paddingTop: 30,
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+  },
+  spinnerTextStyle: {
+    color: '#FFF',
+  },
+});
 export default createAppContainer(AppNavigator);
