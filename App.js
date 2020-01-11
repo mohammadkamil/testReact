@@ -267,35 +267,35 @@ class ResultScreen extends React.Component {
         <Text>1. Age group</Text>
         <View style={{ flex: 1, marginLeft: 20 }}>
 
-          <Text>a. &lt;18 [Total:{this.state.question1a} | {(this.state.question1a / this.state.totalquestion * 100).toFixed(0)}%]</Text>
-          <Text>b. 18 to 35 [Total:{this.state.question1b} | {(this.state.question1b / this.state.totalquestion * 100).toFixed(0)}%]</Text>
+          <Text>a. &lt;18 (Total:{this.state.question1a} | {(this.state.question1a / this.state.totalquestion * 100).toFixed(0)}%)</Text>
+          <Text>b. 18 to 35 (Total:{this.state.question1b} | {(this.state.question1b / this.state.totalquestion * 100).toFixed(0)}%)</Text>
 
-          <Text>c. 36 to 60 [Total:{this.state.question1c} | {(this.state.question1c / this.state.totalquestion * 100).toFixed(0)}%]</Text>
-          <Text>d. 61 and above [Total:{this.state.question1d} | {(this.state.question1d / this.state.totalquestion * 100).toFixed(0)}%]</Text>
+          <Text>c. 36 to 60 (Total:{this.state.question1c} | {(this.state.question1c / this.state.totalquestion * 100).toFixed(0)}%)</Text>
+          <Text>d. 61 and above (Total:{this.state.question1d} | {(this.state.question1d / this.state.totalquestion * 100).toFixed(0)}%)</Text>
         </View>
         <Text>2. Education Level</Text>
         <View style={{ flex: 1, marginLeft: 20 }}>
 
-          <Text>a. Secondary school and below [Total:{this.state.question2a} | {(this.state.question2a / this.state.totalquestion * 100).toFixed(0)}%]</Text>
-          <Text>b. Diploma [Total:{this.state.question2b} | {(this.state.question2b / this.state.totalquestion * 100).toFixed(0)}%]</Text>
+          <Text>a. Secondary school and below (Total:{this.state.question2a} | {(this.state.question2a / this.state.totalquestion * 100).toFixed(0)}%)</Text>
+          <Text>b. Diploma (Total:{this.state.question2b} | {(this.state.question2b / this.state.totalquestion * 100).toFixed(0)}%)</Text>
 
-          <Text>c. Degree [Total:{this.state.question2c} | {(this.state.question2c / this.state.totalquestion * 100).toFixed(0)}%]</Text>
-          <Text>d. Post graduate degree [Total:{this.state.question2d} | {(this.state.question2d / this.state.totalquestion * 100).toFixed(0)}%]</Text>
+          <Text>c. Degree (Total:{this.state.question2c} | {(this.state.question2c / this.state.totalquestion * 100).toFixed(0)}%)</Text>
+          <Text>d. Post graduate degree (Total:{this.state.question2d} | {(this.state.question2d / this.state.totalquestion * 100).toFixed(0)}%)</Text>
         </View>
         <Text>3. Income Level</Text>
         <View style={{ flex: 1, marginLeft: 20 }}>
 
-          <Text>a. Less than RM 1000 [Total:{this.state.question3a} | {(this.state.question3a / this.state.totalquestion * 100).toFixed(0)}%]</Text>
-          <Text>b. Between RM1000 to RM3000 [Total:{this.state.question3b} | {(this.state.question3b / this.state.totalquestion * 100).toFixed(0)}%]</Text>
+          <Text>a. Less than RM 1000 (Total:{this.state.question3a} | {(this.state.question3a / this.state.totalquestion * 100).toFixed(0)}%)</Text>
+          <Text>b. Between RM1000 to RM3000 (Total:{this.state.question3b} | {(this.state.question3b / this.state.totalquestion * 100).toFixed(0)}%)</Text>
 
-          <Text>c. Between RM3000 to RM5000 [Total:{this.state.question3c} | {(this.state.question3c / this.state.totalquestion * 100).toFixed(0)}%]</Text>
-          <Text>d. More than RM5000 [Total:{this.state.question3d} | {(this.state.question3d / this.state.totalquestion * 100).toFixed(0)}%]</Text>
+          <Text>c. Between RM3000 to RM5000 (Total:{this.state.question3c} | {(this.state.question3c / this.state.totalquestion * 100).toFixed(0)}%)</Text>
+          <Text>d. More than RM5000 (Total:{this.state.question3d} | {(this.state.question3d / this.state.totalquestion * 100).toFixed(0)}%)</Text>
         </View>
         <Text>4. Gender</Text>
         <View style={{ flex: 1, marginLeft: 20 }}>
 
-          <Text>a.Male [Total:{this.state.question4a} | {(this.state.question4a / this.state.totalquestion * 100).toFixed(0)}%]</Text>
-          <Text>b. Female [Total:{this.state.question4b} | {(this.state.question4b / this.state.totalquestion * 100).toFixed(0)}%]</Text>
+          <Text>a.Male (Total:{this.state.question4a} | {(this.state.question4a / this.state.totalquestion * 100).toFixed(0)}%)</Text>
+          <Text>b. Female (Total:{this.state.question4b} | {(this.state.question4b / this.state.totalquestion * 100).toFixed(0)}%)</Text>
         </View>
 
         <Button title="Home" onPress={() => this.props.navigation.navigate('Home')}></Button>
